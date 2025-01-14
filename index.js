@@ -1,1 +1,1 @@
-console.log('start project')
+require('./config/db');

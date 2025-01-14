@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon"
+        "dev": "nodemon",
+        "migrate": "node migrations"
     },
     "keywords": [],
     "author": "",
@@ -21,3 +22,4 @@
         "yup": "^1.6.1"
     }
 }
+
