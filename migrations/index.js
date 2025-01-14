@@ -13,32 +13,18 @@ const runQuery = (sql) => {
     });
 };
 
+const files = [
+    path.resolve(__dirname, './users-ddl.sql'),
+    path.resolve(__dirname, './articles-ddl.sql'),
+    path.resolve(__dirname, './tags-ddl.sql'),
+    path.resolve(__dirname, './articles-tags-ddl.sql'),
+];
 const migrate = async () => {
     try {
-        const createUsersTableSql = fs.readFileSync(
-            path.resolve(__dirname, './users-ddl.sql'),
-            'utf-8'
-        );
-
-        const createArticlesTableSql = fs.readFileSync(
-            path.resolve(__dirname, './articles-ddl.sql'),
-            'utf-8'
-        );
-
-        const createTagsTableSql = fs.readFileSync(
-            path.resolve(__dirname, './tags-ddl.sql'),
-            'utf-8'
-        );
-
-        const createArticlesTagsTableSql = fs.readFileSync(
-            path.resolve(__dirname, './articles-tags-ddl.sql'),
-            'utf-8'
-        );
-
-        await runQuery(createUsersTableSql);
-        await runQuery(createArticlesTableSql);
-        await runQuery(createTagsTableSql);
-        await runQuery(createArticlesTagsTableSql);
+        for (const file of files) {
+            const content = fs.readFileSync(file, 'utf-8');
+            await runQuery(content);
+        }
 
         console.log('Migration completed successfully!');
     } catch (error) {
@@ -49,4 +35,3 @@ const migrate = async () => {
 };
 
 migrate();
-
